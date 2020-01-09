@@ -4,7 +4,7 @@ const fs = require("fs");
 let profile = require("../profile.json");
 module.exports.run = async (bot,message,args) => {
     try{
-     
+     profile[message.member.id].hp = profile[message.member.id].hp-1;
     /*	//let roleAu = message.author.roles.get('344848334969765893');
     if(!message.member.roles.get('663319647214370817')) return message.channel.send("У вас нет прав");
     //if(!bot.rUser.roles.get('663319647214370817')) return message.channel.send("Вы не можете мешать смертному!");
@@ -38,20 +38,20 @@ module.exports.run = async (bot,message,args) => {
         if(!message.mentions.users.first()) return bot.send("Вы не указали пользователя с которым хотите биться!");
         if(!message.mentions.users.first().id) return bot.send("Пользователь не найден");
         if(message.mentions.users.first().id==message.member.id) return bot.send("Мазохист!");
-        if(profile[message.member.id].xp<=2) return bot.send("Вы Истощены, исцелитесь!");
+        if(profile[message.member.id].hp<=2) return bot.send("Вы Истощены, исцелитесь!");
         if(profile[message.mentions.users.first().id].hp<=2) return bot.send("Вы победили!");
-        if(profile[message.mentions.users.first().id].mana <= 5) return bot.send("У вас закончилась мана, пополните запасы!");
+        if(profile[message.member.id].mana <= 5) return bot.send("У вас закончилась мана, пополните запасы!");
         profile[message.mentions.users.first().id].hp = profile[message.mentions.users.first().id].hp - profile[message.member.id].damage*3;
         profile[message.member.id].xp = profile[message.member.id].xp + profile[message.member.id].damage/2;
-        profile[message.member.id].mana = profile[message.member.id].mana - 5; 
+        profile[message.member.id].mana = profile[message.member.id].mana - 5*profile[message.member.id].lvl; 
         let idw = rUser;
         let name = idw;
         let emmed = new Discord.RichEmbed()
         .setDescription("Аттака")
         .setColor('#2008e3')
-        .addField(profile[message.mentions.users.first().id].Uname,"Получил урона " + profile[message.member.id].damage*3)
-        .addField(message.member.displayName," Получил опыта " + profile[message.member.id].damage/2)
-        .addField(message.member.displayName," Осталось маны " + profile[message.member.id].mana);
+        .addField(profile[message.mentions.users.first().id].Uname,"Получил урона " + (profile[message.member.id].damage*3))
+        .addField(message.member.displayName," Получил опыта " + parseFloat(profile[message.member.id].damage/2).toFixed() )
+        .addField(message.member.displayName," Осталось маны " + profile[message.member.id].mana );
         bot.send(emmed)
     }catch(err){
         console.log(`1.${err.name}\n2.${err.message}\n3.${err.stack}`);

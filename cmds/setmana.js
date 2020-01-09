@@ -8,13 +8,14 @@ module.exports.run = async (bot,message,args) => {
      	//let roleAu = message.author.roles.get('344848334969765893');
     //if(!message.member.roles.get('663319647214370817')) return message.channel.send("У вас нет прав");
     let rid = message.member.id;
+    if(!message.member.roles.get('662875432135163954')) return message.channel.send("Вы не Администратор!");
     if(!args[0])
     {
-      
+        profile[rid].mana=profile[rid].mana+args[0];
         let emmed = new Discord.RichEmbed()
-        .setDescription("Целостность")
-        .setColor('RED')
-        .addField(message.member.displayName,"У вас " + profile[rid].hp + " HP | "+profile[rid].maxHp)
+        .setDescription("Запас маны увеличен")
+        .setColor('#009900')
+        .addField(message.member.displayName,"На" + args[0] + " ед. маны");
 
         message.channel.send(emmed);
     }
@@ -22,10 +23,11 @@ module.exports.run = async (bot,message,args) => {
     {
         let rUser = message.mentions.users.first();
         let aid = rUser.id;
+        profile[aid].mana=profile[rid].mana+args[0];
         let emmed = new Discord.RichEmbed()
-        .setDescription("Целостность")
+        .setDescription("Запас маны " + profile[aid].Uname)
         .setColor('#009900')
-        .addField("У " + profile[aid].Uname,profile[aid].hp + " HP | "+profile[aid].maxHp)
+        .addField("На " + args[0] + " ед. маны","Успешно");
 
         message.channel.send(emmed);
     }
@@ -40,5 +42,5 @@ module.exports.run = async (bot,message,args) => {
 
 };
 module.exports.help = {
-    name: "hp"
+    name: "setmana"
 };

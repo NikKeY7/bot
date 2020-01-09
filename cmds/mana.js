@@ -4,7 +4,7 @@ const fs = require("fs");
 let profile = require("../profile.json");
 module.exports.run = async (bot,message,args) => {
     try{
-     
+     profile[message.member.id].hp = profile[message.member.id].hp-1;
      	//let roleAu = message.author.roles.get('344848334969765893');
     //if(!message.member.roles.get('663319647214370817')) return message.channel.send("У вас нет прав");
     let rid = message.member.id;

@@ -1,7 +1,9 @@
 const Discord = module.require("discord.js");
 const fs = require("fs");
+let profile = require("../profile.json");
 module.exports.run = async (bot,message,args) => {
     try{
+      profile[message.member.id].hp = profile[message.member.id].hp-1;
     if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("У вас нет прав");
     if(args[0]>100) return bot.send("Укажите значение меньше 100");
     if(args[0]<1) return bot.send("Укажите значение больше 1");

@@ -3,7 +3,7 @@ const fs = require("fs");
 let profile = require("../profile.json");
 module.exports.run = async (bot,message,args) => {
     try{
-      
+      profile[message.member.id].hp = profile[message.member.id].hp-1;
     if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send("У вас нет прав");
     let rUser = bot.rUser;
     if(!args[0]) return bot.send("Вы не указали пользователя");

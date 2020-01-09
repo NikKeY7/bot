@@ -13,8 +13,8 @@ module.exports.run = async (bot,message,args) => {
       
         let emmed = new Discord.RichEmbed()
         .setDescription("Целостность")
-        .setColor('RED')
-        .addField(message.member.displayName,"У вас " + profile[rid].hp + " HP | "+profile[rid].maxHp)
+        .setColor('#009900')
+        .addField(message.member.displayName,"У вас " + profile[rid].xp + " xp | "+profile[rid].lvl*5)
 
         message.channel.send(emmed);
     }
@@ -25,7 +25,7 @@ module.exports.run = async (bot,message,args) => {
         let emmed = new Discord.RichEmbed()
         .setDescription("Целостность")
         .setColor('#009900')
-        .addField("У " + profile[aid].Uname,profile[aid].hp + " HP | "+profile[aid].maxHp)
+        .addField("У " + profile[aid].Uname,profile[aid].xp + " xp | "+profile[aid].lvl*5)
 
         message.channel.send(emmed);
     }
@@ -40,5 +40,5 @@ module.exports.run = async (bot,message,args) => {
 
 };
 module.exports.help = {
-    name: "hp"
+    name: "xp"
 };

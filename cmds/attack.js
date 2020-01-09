@@ -33,8 +33,9 @@ module.exports.run = async (bot,message,args) => {
     .addField(message.member.displayName," Получил опыта " + profile[message.member.id].damage/2);
 
     message.channel.send(emmed);*/
+      profile[message.member.id].hp = profile[message.member.id].hp-1;
     	let rUser = message.mentions.users.first();
-    	if(!message.member.roles.get('663319647214370817')) return  bot.send("У вас нет прав");
+    	//if(!message.member.roles.get('663319647214370817')) return  bot.send("У вас нет прав");
     	//if(!rUser.roles.get('663319647214370817')) return bot.send("Вы не можете мешать смертному!");
     	if(!message.mentions.users.first()) return bot.send("Вы не указали пользователя с которым хотите биться!");
     	if(!message.mentions.users.first().id) return bot.send("Пользователь не найден");
@@ -48,8 +49,8 @@ module.exports.run = async (bot,message,args) => {
     	let emmed = new Discord.RichEmbed()
     	.setDescription("Аттака")
     	.setColor('#e22216')
-    	.addField(profile[message.mentions.users.first().id].Uname,"Получил урона " + profile[message.member.id].damage)
-    	.addField(message.member.displayName," Получил опыта " + profile[message.member.id].damage/2);
+    	.addField(profile[message.mentions.users.first().id].Uname,"Получил урона " + parseFloat(profile[message.member.id].damage).toFixed())
+    	.addField(message.member.displayName," Получил опыта " + parseFloat(profile[message.member.id].damage/2).toFixed());
     	bot.send(emmed)
     }catch(err){
         console.log(`1.${err.name}\n2.${err.message}\n3.${err.stack}`);

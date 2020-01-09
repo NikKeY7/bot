@@ -1,5 +1,16 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
+const express = require('express');
+const keepalive = require('express-glitch-keepalive');
+const app = express();
+app.use(keepalive);
+app.get('/', (req, res) => {
+res.json('Бот запущен!');
+});
+app.get("/", (request, response) => {
+response.sendStatus(200);
+});
+app.listen(process.env.PORT);
 bot.commands = new Discord.Collection();
 const fs = require('fs');
 bot.mutes = require('./mutes.json');
@@ -93,9 +104,11 @@ bot.on('message', async message => {
     if(u.xp>= (u.lvl * 5)){
         u.xp = 0;
         u.lvl += 1;
+        u.maxHp= parseFloat(u.maxHp+u.lvl*10).toFixed();
+        u.damage = parseFloat(u.damage*1.1).toFixed();
         message.channel.send(`Ура, <@${message.author.id}>, поднял свой уровень! Теперь его уровень - ${u.lvl} !`);
-        if(u.lvl == 3) message.author.addRole('662875103851184143');
-        if(u.lvl == 5) message.author.addRole('662875224848465933');
+        if(u.lvl == 3) message.member.addRole('662875103851184143');
+        if(u.lvl == 5) message.member.addRole('662875224848465933');
     };
 
 
